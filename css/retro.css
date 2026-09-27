@@ -1,0 +1,207 @@
+@charset "UTF-8";
+/* ==========================================================================
+   90s MODE
+   Patterns taken from the 20 student sites in Adam Hammond's "Ugly 90s
+   Webpages" gallery (adamhammond.com/ugly-90s-webpages): tiled themed
+   wallpapers, fat double / dotted / groove / ridge borders, Impact + Comic
+   Sans + Times + Courier, blinking text, image cursors, neon clashes
+   (#ff00b4, #00fff1, #00ff69, #ff8800, #df489d), "click HERE" links,
+   marquees and visitor counters.
+   Every rule is scoped to body.retro, so the modern design is untouched.
+   ========================================================================== */
+
+body:not(.retro) .retro-only { display: none !important; }
+
+/* 90s-mode switch (styled in both modes) */
+.nav-right { display: flex; align-items: center; gap: 22px; }
+.retro-toggle {
+  border: 1px solid var(--glass-line); background: var(--glass); color: var(--ink);
+  border-radius: 999px; padding: 6px 12px; font-size: 12px; font-weight: 600; cursor: pointer;
+}
+
+/* ---------- page, wallpaper, cursors ---------- */
+body.retro {
+  --serif: "Fraunces", Georgia, serif;
+  background: #ff00b4 url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27140%27%20height%3D%27140%27%3E%3Ctext%20x%3D%278%27%20y%3D%2752%27%20font-size%3D%2740%27%3E%F0%9F%A7%B8%3C%2Ftext%3E%3Ctext%20x%3D%2776%27%20y%3D%27122%27%20font-size%3D%2740%27%3E%F0%9F%8C%B2%3C%2Ftext%3E%3Ctext%20x%3D%2792%27%20y%3D%2740%27%20font-size%3D%2722%27%3E%E2%AD%90%3C%2Ftext%3E%3Ctext%20x%3D%2716%27%20y%3D%27120%27%20font-size%3D%2722%27%3E%F0%9F%A6%8C%3C%2Ftext%3E%3C%2Fsvg%3E") repeat;
+  color: #000;
+  font-family: "Times New Roman", Times, serif;
+  cursor: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2732%27%20height%3D%2732%27%3E%3Ctext%20y%3D%2726%27%20font-size%3D%2726%27%3E%F0%9F%A7%B8%3C%2Ftext%3E%3C%2Fsvg%3E") 6 4, auto;
+}
+.retro a, .retro button, .retro .place, .retro .label { cursor: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2732%27%20height%3D%2732%27%3E%3Ctext%20y%3D%2727%27%20font-size%3D%2726%27%3E%F0%9F%91%86%3C%2Ftext%3E%3C%2Fsvg%3E") 12 2, pointer; }
+.retro #scene { cursor: grab; }
+
+.retro .rainbow,
+.retro .hero-copy h1 {
+  background: linear-gradient(90deg, #ff0000, #ff8800, #e6b800, #00b000, #0090ff, #8000ff, #ff00b4, #ff0000);
+  background-size: 200% 100%;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: rainbow 3s linear infinite;
+}
+.blink { animation: blink 1s step-end infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+@keyframes rainbow { to { background-position: 200% 0; } }
+
+/* ---------- nav: Windows 95 toolbar ---------- */
+.retro .nav { background: #c0c0c0; backdrop-filter: none; border-bottom: 3px outset #fff; padding: 8px 20px; }
+.retro .brand { font-family: "Comic Sans MS", "Comic Sans", "Chalkboard SE", cursive; color: #ff0000; text-shadow: 1px 1px 0 #000; }
+.retro .brand-mark { display: none; }
+.retro .brand::before { content: "🧸"; text-shadow: none; }
+.retro .nav nav a { color: #0000ee; text-decoration: underline; font: 15px "Times New Roman", Times, serif; }
+.retro .nav nav a::before { content: "["; }
+.retro .nav nav a::after { content: "]"; }
+.retro .retro-toggle { background: #c0c0c0; color: #000; border: 2px outset #fff; border-radius: 0; font: bold 12px Tahoma, Geneva, sans-serif; }
+.retro .retro-toggle:active, .retro .chip:active { border-style: inset; }
+
+/* ---------- hero overlays ---------- */
+.retro .hero-copy {
+  background: #fff; border: 8px ridge #ff00b4; border-radius: 0; backdrop-filter: none;
+  box-shadow: 8px 8px 0 #000; text-align: center;
+}
+.retro .hero-copy .eyebrow { color: #0000ff; font-family: "Courier New", Courier, monospace; letter-spacing: 0; }
+.retro .hero-copy h1 { font-family: Impact, Haettenschweiler, "Arial Black", sans-serif; font-weight: 400; text-transform: uppercase; letter-spacing: 0.5px; }
+.retro .hero-copy .lede { color: #ff0000; font-family: "Comic Sans MS", "Comic Sans", "Chalkboard SE", cursive; }
+
+.retro .chip {
+  background: #c0c0c0; color: #000; border: 2px outset #fff; border-radius: 0;
+  box-shadow: 2px 2px 0 #000; backdrop-filter: none; font: 12px Tahoma, Geneva, sans-serif;
+}
+.retro .chip:hover { transform: none; }
+.retro .chip[aria-pressed="true"] { background: #a8a8a8; color: #000; border-style: inset; }
+
+/* the info card becomes a Windows 95 dialog */
+.retro .info { background: #c0c0c0; color: #000; border: 2px outset #fff; border-radius: 0; box-shadow: 3px 3px 0 #000; backdrop-filter: none; padding: 0 0 14px; }
+.retro .info .info-kicker {
+  display: block; margin: 0 0 10px; padding: 4px 34px 4px 8px;
+  background: linear-gradient(90deg, #000080, #1084d0); color: #fff;
+  font: bold 12px Tahoma, Geneva, sans-serif; letter-spacing: 0; text-transform: none;
+}
+.retro .info h2 { padding: 0 14px; font-family: Impact, Haettenschweiler, "Arial Black", sans-serif; font-weight: 400; color: #000080; text-decoration: underline; }
+.retro .info #info-text { padding: 0 14px; color: #000; font: 15px/1.5 "Times New Roman", Times, serif; }
+.retro .info-close { top: 3px; right: 4px; width: 20px; height: 18px; padding: 0; background: #c0c0c0; border: 2px outset #fff; color: #000; font: bold 13px/12px Tahoma, sans-serif; }
+
+.retro .label-inner {
+  background: #ffff00; color: #0000ee; border: 2px solid #000; border-radius: 0;
+  font-family: "Comic Sans MS", "Comic Sans", "Chalkboard SE", cursive; text-decoration: underline; box-shadow: 3px 3px 0 #000;
+}
+.retro .label:hover .label-inner, .retro .label.active .label-inner { background: #ff00b4; color: #fff; }
+.retro .caption { background: #000; color: #ffff00; border: 3px ridge #ff8800; border-radius: 0; font: bold 15px/1.5 "Courier New", Courier, monospace; }
+.retro .hint { background: #000; color: #00ff00; border-radius: 0; border: 2px solid #00ff00; font-family: "Courier New", monospace; }
+.retro .loader { background: #000080; color: #fff; font-family: "Courier New", monospace; }
+.retro .loader span { border-radius: 0; border-color: #c0c0c0; border-top-color: #ffff00; }
+.retro .scroll-cue { background: #c0c0c0; border: 2px outset #fff; border-radius: 0; color: #000; backdrop-filter: none; }
+
+/* ---------- sections: loud boxes floating on the wallpaper ---------- */
+.retro .section { border-top: 0; padding: 36px 0; background: transparent; }
+.retro .section .wrap { width: min(980px, 100% - 32px); padding: 32px clamp(18px, 4vw, 40px); box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.55); }
+.retro .section h2 { font-family: Impact, Haettenschweiler, "Arial Black", sans-serif; font-weight: 400; text-transform: uppercase; text-decoration: underline; letter-spacing: 1px; }
+.retro .eyebrow { font-family: "Courier New", Courier, monospace; letter-spacing: 0; }
+
+.retro #about .wrap { background: #ffff00; border: 12px double #ff0000; color: #0000cc; }
+.retro #about h2 { color: #ff0000; text-shadow: 2px 2px 0 #000; }
+.retro #about .eyebrow { color: #008000; }
+.retro #about .prose { font-size: 18px; }
+.retro #about .note { background: #fff; border: 3px dotted #ff0000; padding: 10px 14px; color: #000; }
+
+.retro #tablets .wrap { background: #000 url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2790%27%20height%3D%2790%27%3E%3Ctext%20x%3D%276%27%20y%3D%2722%27%20font-size%3D%2713%27%3E%E2%AD%90%3C%2Ftext%3E%3Ctext%20x%3D%2752%27%20y%3D%2770%27%20font-size%3D%2711%27%3E%E2%9C%A8%3C%2Ftext%3E%3Ctext%20x%3D%2760%27%20y%3D%2724%27%20font-size%3D%277%27%20fill%3D%27white%27%3E%E2%9C%A6%3C%2Ftext%3E%3Ctext%20x%3D%2720%27%20y%3D%2780%27%20font-size%3D%277%27%20fill%3D%27white%27%3E%E2%9C%A6%3C%2Ftext%3E%3C%2Fsvg%3E") repeat; border: 14px groove #00ff69; color: #fff; }
+.retro #tablets h2 { color: #00ff69; text-shadow: 3px 3px 2px red, 0 0 15px darkblue, 0 0 5px deepskyblue; }
+.retro #tablets .eyebrow { color: #ffff00; }
+.retro #tablets .section-lede { color: #fff; }
+.retro .freedom-grid li { background: #d9d4c7; border: 6px groove #9a9a9a; border-radius: 0; color: #000; text-align: center; }
+.retro .freedom-grid .num { color: #ff0000; font-family: Impact, Haettenschweiler, "Arial Black", sans-serif; }
+.retro .freedom-grid h3 { font-family: Impact, Haettenschweiler, "Arial Black", sans-serif; font-weight: 400; text-transform: uppercase; color: #000080; }
+.retro .freedom-grid p { color: #000; font-style: italic; }
+
+.retro #places .wrap { background: #fff; border: 20px dotted #df489d; color: #000; }
+.retro #places h2 { color: #df489d; text-shadow: 2px 2px 0 #00fff1; }
+.retro #places .eyebrow { color: #0000ff; }
+.retro #places .section-lede { color: #000; }
+.retro .place { background: #c0c0c0; border: 3px outset #fff; border-radius: 0; color: #000; }
+.retro .place:hover { transform: none; box-shadow: none; background: #d4d0c8; }
+.retro .place:active { border-style: inset; }
+.retro .place .kicker { color: #800080; font-family: "Courier New", Courier, monospace; letter-spacing: 0; }
+.retro .place h3 { font-family: "Times New Roman", Times, serif; font-weight: 700; color: #0000ee; text-decoration: underline; }
+.retro .place p { color: #000; }
+.retro .place .go { font-size: 0; padding-top: 10px; }
+.retro .place .go::after { content: "»» CLICK HERE ««"; font: bold 14px "Comic Sans MS", "Comic Sans", "Chalkboard SE", cursive; color: #ff0000; animation: blink 1s step-end infinite; }
+
+.retro #history .wrap { background: #000080 url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27110%27%20height%3D%27110%27%3E%3Ctext%20x%3D%2710%27%20y%3D%2730%27%20font-size%3D%2714%27%20opacity%3D%270.6%27%3E%E2%9C%A8%3C%2Ftext%3E%3Ctext%20x%3D%2770%27%20y%3D%2790%27%20font-size%3D%2712%27%20opacity%3D%270.5%27%3E%E2%9C%A8%3C%2Ftext%3E%3Ctext%20x%3D%2775%27%20y%3D%2730%27%20font-size%3D%278%27%20fill%3D%27white%27%20opacity%3D%270.6%27%3E%E2%9C%A6%3C%2Ftext%3E%3C%2Fsvg%3E") repeat; border: 10px ridge #ff8800; color: #fff; font-family: "Courier New", Courier, monospace; }
+.retro #history h2 { color: #ffff00; text-shadow: 3px 3px 0 #ff00b4; }
+.retro #history .eyebrow { color: #00fff1; }
+.retro .timeline::before { background: #ff8800; width: 4px; }
+.retro .timeline li::after { background: #ff00b4; border: 2px solid #fff; border-radius: 0; transform: rotate(45deg); }
+.retro .timeline time { color: #ffff00; font-family: "Courier New", Courier, monospace; }
+.retro .timeline strong { color: #00ff69; }
+
+.retro #visit .wrap { background: #00ff69; border: 20px dashed #000; color: #4b0082; font-family: "Comic Sans MS", "Comic Sans", "Chalkboard SE", cursive; }
+.retro #visit h2 { color: #ff00b4; text-shadow: 2px 2px 0 #000; }
+.retro #visit .eyebrow { color: #0000ff; }
+.retro .visit-grid article { background: #ffff00; border: 4px dashed #ff00b4; border-radius: 0; }
+.retro .visit-grid h3 { font-family: Impact, Haettenschweiler, "Arial Black", sans-serif; font-weight: 400; text-transform: uppercase; color: #ff0000; }
+.retro .visit-grid p { color: #4b0082; }
+
+.retro .footer { border-top: 0; padding: 24px 0 60px; color: #00ff69; }
+.retro .footer .wrap { background: #000; border: 8px outset #c0c0c0; font-family: "Courier New", Courier, monospace; text-align: center; padding: 22px; }
+.retro .footer a { color: #00fff1; }
+
+/* ---------- 90s-only furniture ---------- */
+.marquee {
+  overflow: hidden; white-space: nowrap; background: #000; color: #ffff00;
+  border-block: 4px ridge #ff8800; font: bold 16px "Courier New", Courier, monospace; padding: 6px 0;
+}
+.marquee span { display: inline-block; padding-left: 100%; animation: marquee 30s linear infinite; }
+@keyframes marquee { to { transform: translateX(-100%); } }
+
+.construction {
+  width: min(980px, 100% - 32px); margin: 28px auto 0; padding: 12px; text-align: center;
+  background: repeating-linear-gradient(45deg, #ffcc00 0 18px, #000 18px 36px);
+}
+.construction span { display: inline-block; background: #ffcc00; border: 3px solid #000; padding: 6px 14px; font: 18px Impact, "Arial Black", sans-serif; letter-spacing: 1px; color: #000; }
+
+.divider {
+  width: min(980px, 100% - 32px); height: 12px; margin: 0 auto; border: 2px solid #000;
+  background: linear-gradient(90deg, red, orange, yellow, lime, cyan, blue, magenta, red);
+  background-size: 200% 100%; animation: rainbow 2s linear infinite;
+}
+
+.new-badge {
+  display: inline-block; margin-left: 8px; padding: 2px 6px; vertical-align: middle;
+  background: #ff0000; color: #ffff00; font: bold 12px Arial, sans-serif; text-decoration: none;
+  -webkit-text-fill-color: #ffff00; transform: rotate(-8deg);
+}
+.click-here { font-family: "Comic Sans MS", "Comic Sans", "Chalkboard SE", cursive; font-weight: bold; }
+.retro .click-here a { color: #0000ee; text-decoration: underline; }
+.retro #tablets .click-here a, .retro #history .click-here a { color: #00fff1; }
+
+.oldweb { margin-bottom: 18px; }
+.oldweb p { margin: 6px 0; }
+.odo span {
+  display: inline-block; margin: 0 1px; padding: 0 5px; background: #111; color: #fff;
+  border: 1px solid #666; font: bold 18px "Courier New", monospace;
+}
+.badges { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 14px 0; }
+.badge88 {
+  width: 88px; height: 31px; display: grid; place-items: center; text-align: center;
+  font: bold 9.5px/1.05 Verdana, Geneva, sans-serif; border: 2px outset #ddd;
+}
+.b1 { background: #000; color: #00ff00; }
+.b2 { background: #004080; color: #fff; }
+.b3 { background: #ffcc00; color: #c00; }
+.b4 { background: #fff; color: #000080; }
+.webring { display: inline-flex; flex-wrap: wrap; gap: 6px; align-items: center; justify-content: center; border: 3px double #00ff69; padding: 6px 10px; margin-top: 8px; }
+.webring button { background: #c0c0c0; color: #000; border: 2px outset #fff; font: 12px Tahoma, Geneva, sans-serif; padding: 3px 8px; }
+.webring button:active { border-style: inset; }
+
+.sparkle {
+  position: fixed; z-index: 100; pointer-events: none; font-size: 14px;
+  transform: translate(-50%, -50%); animation: sparkle 0.8s ease-out forwards;
+}
+@keyframes sparkle { to { transform: translate(-50%, 30px) scale(0.3); opacity: 0; } }
+
+@media (max-width: 640px) {
+  .retro .section .wrap, .retro .footer .wrap { border-width: 8px !important; padding: 22px 16px; }
+  .retro .nav { padding: 8px 12px; }
+  .marquee { font-size: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee span { padding-left: 16px; }
+}

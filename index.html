@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Theodore Roosevelt Island</title>
+  <meta name="description" content="An interactive, low-poly 3D model of Theodore Roosevelt Island, the wooded memorial island in the Potomac River in Washington, DC." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/retro.css" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <script>
+    // Start in 90s mode unless the visitor switched it off (set early to avoid a flash of the other style).
+    try { if (localStorage.getItem('tri-retro') !== 'off') document.body.classList.add('retro'); } catch (e) { document.body.classList.add('retro'); }
+  </script>
+  <header class="nav">
+    <a class="brand" href="#hero"><span class="brand-mark" aria-hidden="true"></span>Roosevelt Island</a>
+    <div class="nav-right">
+      <nav>
+        <a href="#about">Park</a>
+        <a href="#tablets">Tablets</a>
+        <a href="#places">Places</a>
+        <a href="#history">History</a>
+        <a href="#visit">Visit</a>
+      </nav>
+      <button id="retro-toggle" class="retro-toggle" type="button" aria-pressed="true">90s mode: ON</button>
+    </div>
+  </header>
+
+  <section id="hero" class="hero" aria-label="Interactive 3D model of Theodore Roosevelt Island">
+    <canvas id="scene"></canvas>
+    <div id="labels" class="labels"></div>
+
+    <div class="hero-copy">
+      <p class="eyebrow">Theodore Roosevelt Island · Potomac River · Washington, DC<span class="retro-only new-badge blink">NEW!</span></p>
+      <h1>A wild island in the middle of the capital</h1>
+      <p class="lede">Explore a miniature model of the island memorial to Theodore Roosevelt and the city around it. Drag to orbit, then click a marker.</p>
+    </div>
+
+    <div class="hud" role="toolbar" aria-label="Model controls">
+      <button id="btn-tour" class="chip" aria-pressed="false" title="Play a narrated tour of the island">▶ Tour</button>
+      <button id="btn-voice" class="chip" aria-pressed="false" title="Read each place aloud when you open it">🔈 Narration</button>
+      <button id="btn-time" class="chip" aria-pressed="false" title="Toggle day / night">☾ Night</button>
+      <button id="btn-rotate" class="chip" aria-pressed="true" title="Toggle auto-orbit">⟳ Orbit</button>
+      <button id="btn-tilt" class="chip" aria-pressed="true" title="Toggle tilt-shift blur">◐ Tilt-shift</button>
+      <button id="btn-zoom-in" class="chip icon" title="Zoom in" aria-label="Zoom in">+</button>
+      <button id="btn-zoom-out" class="chip icon" title="Zoom out" aria-label="Zoom out">−</button>
+      <button id="btn-reset" class="chip" title="Reset view">Reset</button>
+    </div>
+
+    <aside id="info" class="info" hidden>
+      <button class="info-close" aria-label="Close">×</button>
+      <p class="info-kicker" id="info-kicker"></p>
+      <h2 id="info-title"></h2>
+      <p id="info-text"></p>
+    </aside>
+
+    <div id="caption" class="caption" role="status" hidden></div>
+    <div id="hint" class="hint">Drag to orbit · Right-drag to pan · <kbd>⌘</kbd>/<kbd>Ctrl</kbd> + scroll or pinch to zoom</div>
+    <div id="loader" class="loader"><span></span>Growing the forest…<small class="retro-only">Connecting at 56k… please wait</small></div>
+    <a class="scroll-cue" href="#about" aria-label="Scroll to content">↓</a>
+  </section>
+
+  <main>
+    <div class="retro-only marquee" aria-hidden="true"><span>★ WELCOME 2 THEODORE ROOSEVELT ISLAND ON THE INFORMATION SUPERHIGHWAY!!! ★ 88.5 ACRES OF FOREST IN THE MIDDLE OF WASHINGTON, DC ★ NO CARS ALLOWED!! ★ &ldquo;SPEAK SOFTLY AND CARRY A BIG STICK&rdquo; ★ BOOKMARK THIS PAGE!!! ★</span></div>
+    <div class="retro-only construction"><span>🚧 THIS SITE IS UNDER CONSTRUCTION 🚧</span></div>
+
+    <section id="about" class="section intro">
+      <div class="wrap two-col">
+        <div>
+          <p class="eyebrow">The park</p>
+          <h2>A memorial you can walk through</h2>
+        </div>
+        <div class="prose">
+          <p><strong>Theodore Roosevelt Island</strong> is an 88.5-acre wooded island in the Potomac River, between Georgetown in Washington, DC and Rosslyn, Virginia. The National Park Service manages it as a memorial to the 26th president, who is remembered for protecting public lands and wildlife.</p>
+          <p>Most presidents are remembered with a building. Roosevelt is remembered with a forest. There are no roads and no cars on the island, only footpaths through the woods, boardwalks over the marsh, and a memorial plaza in a clearing near the middle.</p>
+          <p class="note">The model above is stylized and not to scale. The river, bridges and nearby landmarks are pulled closer together so they fit in one view.</p>
+          <p class="retro-only click-here">Click <a href="#places">HERE</a> to see all the cool places on the island!!!</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="retro-only divider" aria-hidden="true"></div>
+    <section id="tablets" class="section freedoms">
+      <div class="wrap">
+        <p class="eyebrow">The memorial plaza · 1967</p>
+        <h2>Four granite tablets</h2>
+        <p class="section-lede">Around Paul Manship's statue of Roosevelt stand four 21-foot granite tablets, each carved with his words on one theme. Here is one line from each.</p>
+        <ol class="freedom-grid">
+          <li><span class="num">I</span><h3>Nature</h3><p>&ldquo;There is delight in the hardy life of the open.&rdquo;</p></li>
+          <li><span class="num">II</span><h3>Manhood</h3><p>&ldquo;It is hard to fail, but it is worse never to have tried to succeed.&rdquo;</p></li>
+          <li><span class="num">III</span><h3>Youth</h3><p>&ldquo;Courage, hard work, self-mastery, and intelligent effort are all essential to a successful life.&rdquo;</p></li>
+          <li><span class="num">IV</span><h3>The State</h3><p>&ldquo;Order without liberty and liberty without order are equally destructive.&rdquo;</p></li>
+        </ol>
+        <p class="retro-only click-here">Click <a href="#hero" data-go="memorial">HERE</a> to see the tablets in 3-D!!</p>
+      </div>
+    </section>
+
+    <div class="retro-only divider" aria-hidden="true"></div>
+    <section id="places" class="section places">
+      <div class="wrap">
+        <p class="eyebrow">On the model</p>
+        <h2>Places to find<span class="retro-only new-badge blink">HOT!</span></h2>
+        <p class="section-lede">Choose a place to fly the camera there.</p>
+        <div class="place-grid" id="place-grid"></div>
+      </div>
+    </section>
+
+    <div class="retro-only divider" aria-hidden="true"></div>
+    <section id="history" class="section history">
+      <div class="wrap">
+        <p class="eyebrow">Timeline</p>
+        <h2>From Analostan Island to a national memorial</h2>
+        <ol class="timeline">
+          <li><time>Early</time><p>The island's old name, <strong>Analostan</strong>, is thought to come from the Nacotchtank (Anacostan) people who lived along the Potomac.</p></li>
+          <li><time>1790s</time><p><strong>John Mason</strong>, son of George Mason, builds a house and gardens here. People call it Mason's Island.</p></li>
+          <li><time>1863</time><p>During the Civil War, Union soldiers, including the <strong>1st U.S. Colored Infantry</strong>, train on the island.</p></li>
+          <li><time>1923</time><p>The <strong>Key Bridge</strong> opens just upstream, linking Rosslyn to Georgetown.</p></li>
+          <li><time>1931</time><p>The Theodore Roosevelt Memorial Association buys the island and gives it to the nation as a memorial.</p></li>
+          <li><time>1930s</time><p>Following a plan by the <strong>Olmsted Brothers</strong>, Civilian Conservation Corps crews clear old fields and plant a new forest.</p></li>
+          <li><time>1964</time><p>The <strong>Theodore Roosevelt Bridge</strong> opens across the island's southern tip.</p></li>
+          <li><time>1967</time><p>The <strong>memorial plaza</strong>, designed by Eric Gugler with a statue by Paul Manship, is dedicated on October 27, Roosevelt's birthday.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <div class="retro-only divider" aria-hidden="true"></div>
+    <section id="visit" class="section visit">
+      <div class="wrap">
+        <p class="eyebrow">Getting there</p>
+        <h2>Visit the island</h2>
+        <div class="visit-grid">
+          <article><h3>On foot or by Metro</h3><p>From <strong>Rosslyn</strong> station (Blue, Orange and Silver lines), walk about 15 minutes to the footbridge on the Virginia shore.</p></article>
+          <article><h3>By bike or car</h3><p>The <strong>Mount Vernon Trail</strong> passes the entrance. Bikes aren't allowed on the island, so lock up at the racks. The small parking lot can only be reached from the northbound George Washington Memorial Parkway.</p></article>
+          <article><h3>On the island</h3><p>Walk the Swamp Trail boardwalk loop, the Upland Trail or the short Woods Trail to the memorial. Hours can change, so check the National Park Service website before you go.</p></article>
+        </div>
+        <p class="retro-only click-here">Click <a href="https://www.nps.gov/this/" target="_blank" rel="noopener">HERE</a> for the official National Park Service page!</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="retro-only oldweb">
+        <p>YOU HAVE VISITED THIS PAGE <span id="odo" class="odo"></span> TIMES!!</p>
+        <div class="badges" aria-hidden="true">
+          <span class="badge88 b1">BEST VIEWED<br />800 × 600</span>
+          <span class="badge88 b2">NETSCAPE<br />NOW!</span>
+          <span class="badge88 b3">MADE WITH<br />NOTEPAD</span>
+          <span class="badge88 b4">THREE.JS<br />INSIDE</span>
+        </div>
+        <div class="webring" role="group" aria-label="Park webring: jump between places on the model">
+          <button type="button" data-ring="prev">« Prev</button>
+          <span>~ Roosevelt Island WebRing ~</span>
+          <button type="button" data-ring="random">Random</button>
+          <button type="button" data-ring="next">Next »</button>
+        </div>
+        <p><small>Last updated: September 26, 2026</small></p>
+      </div>
+      <p>A stylized, not-to-scale model built with <a href="https://threejs.org" target="_blank" rel="noopener">Three.js</a>. Visual style inspired by <a href="https://demos.littleworkshop.fr/infinitown" target="_blank" rel="noopener">Infinitown</a> by Little Workshop.<span class="retro-only"> 90s mode learned from the student sites in Adam Hammond's <a href="https://adamhammond.com/ugly-90s-webpages/" target="_blank" rel="noopener">Ugly 90s Webpages</a> gallery.</span></p>
+    </div>
+  </footer>
+
+  <script type="module" src="js/main.js"></script>
+  <script type="module" src="js/tour.js"></script>
+  <script src="js/retro.js" defer></script>
+</body>
+</html>

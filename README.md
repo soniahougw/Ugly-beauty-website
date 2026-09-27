@@ -1,0 +1,1 @@
+I created an ugly beauty style website for Roosevelt Island DC Park, which you can switch from default mode to ugly 90s website mode. I referenced 3D models from Three.js website and defined what is "ugly beauty" from https://adamhammond.com/ugly-90s-webpages/. For the MCP servers, I used NPS MCP for verifying information and EleventLabs MCP for inserting audio.
